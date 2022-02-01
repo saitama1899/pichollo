@@ -6,5 +6,5 @@ TODO:
 
 - Lograr evitar la detección en el tercer portal
 - Guarda el resultado y lo compara con el anterior ejecutando la función cada 5 minutos con Mongo db cloud
-- Notificaciones push con Web push
+- Notificaciones push con Web push cuándo salte una novedad
 - Deploy y cron job (con ?)
