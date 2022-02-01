@@ -4,6 +4,6 @@ Scraping de portales inmobiliarios con playwright
 
 TODO:
 
-- Guarda el resultado y lo compara con el anterior ejecutando la función cada 5 minutos
+- Guarda el resultado y lo compara con el anterior ejecutando la función cada 5 minutos con Mongo db cloud
 - Notificaciones push con Web push
-- Deploy
+- Deploy (?)
