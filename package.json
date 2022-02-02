@@ -21,9 +21,10 @@
     "nodemon": "2.0.15"
   },
   "dependencies": {
-    "cross-env": "^7.0.3",
-    "firebase": "^9.6.5",
-    "playwright-chromium": "^1.18.1"
+    "cross-env": "7.0.3",
+    "dotenv": "15.0.0",
+    "mongoose": "6.1.10",
+    "playwright-chromium": "1.18.1"
   },
   "eslintConfig": {
     "env": {
