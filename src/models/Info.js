@@ -4,8 +4,8 @@ const infoSchema = new Schema({
   portal: String,
   zona: String,
   limite: String,
-  info: Number,
-  novedad: Boolean
+  info: Number
+  // novedad: Boolean
 })
 
 const Info = model('Info', infoSchema)
