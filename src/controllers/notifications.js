@@ -1,23 +1,43 @@
 const notificationsRouter = require('express').Router()
 const webpush = require('../webpush')
-let pushSubscription
+const User = require('../models/User')
+const { getUsers } = require('../functions/utils')
 
-notificationsRouter.post('/', async (req, res) => {
-  pushSubscription = req.body
-  res.status(200).json()
+notificationsRouter.post('/', async (req, res, next) => {
+  const pushSubscription = req.body
+  await User.find({ token: JSON.stringify(pushSubscription) }).then(async (res) => {
+    if (!res) {
+      try {
+        const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
+        const savedPush = await pushToSave.save()
+        console.log('Token guardado correctamente.')
+        res.status(201).json(savedPush)
+      } catch (e) {
+        console.error(e)
+        res.status(400)
+        next(e)
+      }
+    } else { console.log('Token almacenado con anterioridad.') }
+  })
 })
 
 notificationsRouter.post('/novedad', async (req, res) => {
-  const { portal, url, zona, precio } = req.body
-
+  const { portal, url, zona, limite } = req.body.info
+  // console.log(req.body)
   const payload = JSON.stringify({
     title: 'Pichollo',
-    message: `${portal}: Hay una novedad en ${zona} por menos de ${precio}€`,
+    message: `${portal}: Hay una novedad en ${zona} por menos de ${limite}€`,
     url
   })
 
   try {
-    await webpush.sendNotification(pushSubscription, payload)
+    await getUsers().then((res) => {
+      res.forEach(async (user) => {
+        const { token } = user
+        const pushSubscription = JSON.parse(token)
+        await webpush.sendNotification(pushSubscription, payload)
+      })
+    })
   } catch (e) { console.error(e) }
 })
 
