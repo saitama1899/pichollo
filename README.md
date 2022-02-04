@@ -6,6 +6,5 @@ Scraping de portales inmobiliarios con playwright
 
 TODO:
 
-- Arreglar Bug cuándo manda notificacion de novedad siga comprobando el resto de portales
 - Lograr evitar la detección del bot en el tercer portal
 - Deploy (con ?) y cron job ejecutando cada 5 minutos

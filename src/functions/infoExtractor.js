@@ -16,6 +16,7 @@ const actualizarDB = async (portal, res, zona, limite) => {
     const buscarInfo = await Info.findOne({ portal: info.portal, zona: info.zona })
     if (buscarInfo) {
       await Info.findByIdAndUpdate(buscarInfo._id, info)
+      console.log('Llego a update info')
       if (buscarInfo.info < info.info) await mandarNotificacion(info)
     } else {
       const infoToSave = new Info(info)
@@ -44,8 +45,10 @@ const checkear = async (zona, limite) => {
     // await page.waitForTimeout(2122)
     // const res = await check({ page })
     // await page.close()
-    const res = 167
+    console.log('Bucle de shops')
+    const res = 172
     await actualizarDB(vendor, parseInt(res), zona, limite)
+    console.log('Fin bucle de shops')
   }
 
   // await browser.close()

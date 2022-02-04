@@ -22,8 +22,8 @@ notificationsRouter.post('/', async (req, res, next) => {
 })
 
 notificationsRouter.post('/novedad', async (req, res) => {
+  console.log('Peticion post')
   const { portal, url, zona, limite } = req.body.info
-  // console.log(req.body)
   const payload = JSON.stringify({
     title: 'Pichollo',
     message: `${portal}: Hay una novedad en ${zona} por menos de ${limite}€`,
@@ -36,6 +36,7 @@ notificationsRouter.post('/novedad', async (req, res) => {
         const { token } = user
         const pushSubscription = JSON.parse(token)
         await webpush.sendNotification(pushSubscription, payload)
+        console.log('Terminada peticion post')
       })
     })
   } catch (e) { console.error(e) }

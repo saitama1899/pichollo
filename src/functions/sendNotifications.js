@@ -6,14 +6,15 @@ const reqUrl = NODE_ENV === 'development'
   ? LOCAL_URL + `:${PORT}`
   : PROD_URL
 
-const mandarNotificacion = async (info) => {
+const mandarNotificacion = (info) => {
+  console.log('Mandar notificacion')
   const config = {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     }
   }
-  await axios.post(`${reqUrl}/api/notifications/novedad`, {
+  axios.post(`${reqUrl}/api/notifications/novedad`, {
     info,
     config
   })
