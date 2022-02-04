@@ -8,7 +8,9 @@ const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const path = require('path')
+const busquedas = require('./busquedas')
 const { checkear } = require('./functions/infoExtractor')
+const { delay, between } = require('./functions/utils')
 const notificationsRouter = require('./controllers/notifications')
 
 const app = express()
@@ -28,10 +30,16 @@ app.use('/api/notifications', notificationsRouter)
 // Static content
 app.use(express.static(path.join(__dirname, 'public')))
 
-checkear('maresme', 700)
-
 const PORT = process.env.PORT
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+// Cronjob
+setInterval(() => {
+  busquedas.forEach(async busqueda => {
+    await checkear(busqueda.zona, busqueda.limite)
+    await delay(between(10000, 15000))
+  })
+}, between(600000, 800000))

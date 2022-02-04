@@ -1,7 +1,7 @@
-// const { chromium } = require('playwright-chromium')
+const { chromium } = require('playwright-chromium')
 const shops = require('../portales')
 const Info = require('../models/Info')
-// const { delay } = require('./utils')
+const { delay, between } = require('./utils')
 const { mandarNotificacion } = require('./sendNotifications')
 
 const actualizarDB = async (portal, res, zona, limite) => {
@@ -11,7 +11,7 @@ const actualizarDB = async (portal, res, zona, limite) => {
     limite,
     info: res
   }
-
+  console.log(info)
   try {
     const buscarInfo = await Info.findOne({ portal: info.portal, zona: info.zona })
     if (buscarInfo) {
@@ -21,34 +21,31 @@ const actualizarDB = async (portal, res, zona, limite) => {
       const infoToSave = new Info(info)
       await infoToSave.save()
     }
-    // console.log({ info })
   } catch (e) { console.error(e) }
 }
 
 const checkear = async (zona, limite) => {
-  // const browser = await chromium.launch({ headless: false })
+  const browser = await chromium.launch({ headless: true })
 
   for (const shop of shops) {
-    // await delay(2413)
-    // const { check, zonas, vendor, url } = shop
-    const { vendor } = shop
-    // const page = await browser.newPage()
+    await delay(between(2000, 4000))
+    const { check, zonas, vendor, url } = shop
+    const page = await browser.newPage()
 
-    // await page.waitForTimeout(2580)
-    // const zonaUrl = zonas ? zonas[zona] || zona : zona
+    await page.waitForTimeout(between(2000, 4000))
+    const zonaUrl = zonas ? zonas[zona] || zona : zona
 
-    // await page.waitForTimeout(2152)
-    // await page.goto(url({ zonaUrl, limite }))
+    await page.waitForTimeout(between(2000, 4000))
+    await page.goto(url({ zonaUrl, limite }))
 
-    // await page.waitForLoadState()
-    // await page.waitForTimeout(2122)
-    // const res = await check({ page })
-    // await page.close()
-    const res = 172
+    await page.waitForLoadState()
+    await page.waitForTimeout(between(2000, 4000))
+    const res = await check({ page })
+    await page.close()
     await actualizarDB(vendor, parseInt(res), zona, limite)
   }
 
-  // await browser.close()
+  await browser.close()
 }
 
 module.exports = {

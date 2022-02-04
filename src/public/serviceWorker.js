@@ -6,6 +6,13 @@ self.addEventListener('push', e => {
   console.log(data)
   self.registration.showNotification(data.title, {
     body: data.message,
-    icon: './piso.png'
+    icon: './piso.png',
+    actions: [{ action: 'open_url', title: 'Ver mas' }]
   })
+})
+
+self.addEventListener('notificationclick', e => {
+  const data = e.data.json()
+  window.location.replace(data.url)
+  e.notification.close()
 })

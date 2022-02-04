@@ -7,4 +7,5 @@ Scraping de portales inmobiliarios con playwright
 TODO:
 
 - Lograr evitar la detección del bot en el tercer portal
-- Deploy (con ?) y cron job ejecutando cada 5 minutos
+- Deploy (con ?) y cron job ejecutando cada 10-15 minutos
+- Refactor de código
