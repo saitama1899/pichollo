@@ -28,7 +28,7 @@ app.use(bodyParser.json())
 app.use('/api/notifications', notificationsRouter)
 
 // Static content
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '/public')))
 
 const PORT = process.env.PORT
 
@@ -37,9 +37,9 @@ app.listen(PORT, () => {
 })
 
 // Cronjob
-setInterval(() => {
-  busquedas.forEach(async busqueda => {
-    await checkear(busqueda.zona, busqueda.limite)
-    await delay(between(10000, 15000))
-  })
-}, between(600000, 800000))
+// setInterval(() => {
+busquedas.forEach(async busqueda => {
+  await checkear(busqueda.zona, busqueda.limite)
+  await delay(between(10000, 15000))
+})
+// }, between(600000, 800000))

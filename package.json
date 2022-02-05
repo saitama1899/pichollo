@@ -2,10 +2,10 @@
   "name": "pichollo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
-    "start": "cross-env NODE_ENV=production node index.js",
+    "start": "cross-env NODE_ENV=production node ./src/index.js",
     "lint": "eslint .",
     "std": "standard && node *.js",
     "test": "cross-env NODE_ENV=test PORT=1365 jest --verbose --silent -forceExit --watchAll--maxWorkers=1",
@@ -30,6 +30,7 @@
     "mongoose": "6.1.10",
     "morgan": "1.10.0",
     "playwright-chromium": "1.18.1",
+    "serverless-http": "^2.7.0",
     "web-push": "3.4.5"
   },
   "eslintConfig": {
