@@ -25,6 +25,7 @@ const actualizarDB = async (portal, res, zona, limite) => {
 }
 
 const checkear = async (zona, limite) => {
+  console.log('Inicio checkeo')
   const browser = await chromium.launch({ headless: true })
 
   for (const shop of shops) {
@@ -43,6 +44,7 @@ const checkear = async (zona, limite) => {
     const res = await check({ page })
     await page.close()
     await actualizarDB(vendor, parseInt(res), zona, limite)
+    console.log('Fin checkeo')
   }
 
   await browser.close()
