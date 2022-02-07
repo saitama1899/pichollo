@@ -3,23 +3,46 @@ const webpush = require('../webpush')
 const User = require('../models/User')
 const { getUsers } = require('../functions/utils')
 
+// notificationsRouter.post('/', async (req, res, next) => {
+//   console.log('Inicio guardar token notificacion')
+//   const pushSubscription = req.body
+//   await User.find({ token: JSON.stringify(pushSubscription) }).then(async (response) => {
+//     if (!response) {
+//       try {
+//         const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
+//         const savedPush = await pushToSave.save()
+//         console.log('Token guardado correctamente.')
+//         res.status(201).json(savedPush)
+//       } catch (e) {
+//         console.error(e)
+//         res.status(400)
+//         next(e)
+//       }
+//     } else {
+//       console.log('Token almacenado con anterioridad.')
+//       res.status(200)
+//     }
+//   })
+// })
 notificationsRouter.post('/', async (req, res, next) => {
   console.log('Inicio guardar token notificacion')
   const pushSubscription = req.body
-  await User.find({ token: JSON.stringify(pushSubscription) }).then(async (res) => {
-    if (!res) {
-      try {
-        const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
-        const savedPush = await pushToSave.save()
-        console.log('Token guardado correctamente.')
-        res.status(201).json(savedPush)
-      } catch (e) {
-        console.error(e)
-        res.status(400)
-        next(e)
-      }
-    } else { console.log('Token almacenado con anterioridad.') }
-  })
+  try {
+    const subscripcionExiste = await User.find({ token: JSON.stringify(pushSubscription) }).then(result => result)
+    if (!subscripcionExiste) {
+      const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
+      const savedPush = await pushToSave.save()
+      console.log('Token guardado correctamente.')
+      res.status(201).json(savedPush)
+    } else {
+      console.log('Token almacenado con anterioridad.')
+      res.status(200).json(subscripcionExiste)
+    }
+  } catch (e) {
+    console.error(e)
+    res.status(400)
+    next(e)
+  }
 })
 
 notificationsRouter.post('/novedad', async (req, res) => {
