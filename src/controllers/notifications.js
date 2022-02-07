@@ -8,9 +8,6 @@ notificationsRouter.post('/', async (req, res, next) => {
   const pushSubscription = req.body
   try {
     const subscripcionExiste = await User.find({ token: JSON.stringify(pushSubscription) }).count() > 0
-    console.log(pushSubscription)
-    console.log('························')
-    console.log(subscripcionExiste)
 
     if (!subscripcionExiste) {
       console.log(subscripcionExiste)
@@ -28,30 +25,6 @@ notificationsRouter.post('/', async (req, res, next) => {
     next(e)
   }
 })
-// notificationsRouter.post('/', async (req, res, next) => {
-//   console.log('Inicio guardar token notificacion')
-//   const pushSubscription = req.body
-//   console.log(pushSubscription)
-//   try {
-//     const subscripcionExiste = await User.find({ token: JSON.stringify(pushSubscription) }).then(result => {
-//       console.log(result)
-//     })
-//     if (!subscripcionExiste) {
-//       console.log(subscripcionExiste)
-//       const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
-//       const savedPush = await pushToSave.save()
-//       console.log('Token guardado correctamente.')
-//       res.status(201).json(savedPush)
-//     } else {
-//       console.log('Token almacenado con anterioridad.')
-//       res.status(200).json(subscripcionExiste)
-//     }
-//   } catch (e) {
-//     console.error(e)
-//     res.status(400)
-//     next(e)
-//   }
-// })
 
 notificationsRouter.post('/novedad', async (req, res) => {
   console.log('Inicio request para mandar la notificacion')
