@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "std": "standard && node *.js",
     "test": "cross-env NODE_ENV=test PORT=1365 jest --verbose --silent -forceExit --watchAll--maxWorkers=1",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "heroku-postbuild": "npm run build",
+    "heroku-cleanup": "npx playwright install"
   },
   "keywords": [],
   "devDependencies": {
