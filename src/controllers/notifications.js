@@ -6,9 +6,12 @@ const { getUsers } = require('../functions/utils')
 notificationsRouter.post('/', async (req, res, next) => {
   console.log('Inicio guardar token notificacion')
   const pushSubscription = req.body
-  await User.find({ token: JSON.stringify(pushSubscription) }).then(async (response) => {
-    if (!response) {
-      console.log(response)
+  await User.find({ token: JSON.stringify(pushSubscription) }).then(async (subscripcionExiste) => {
+    console.log(pushSubscription)
+    console.log('························')
+    console.log(subscripcionExiste)
+    if (!subscripcionExiste) {
+      console.log(subscripcionExiste)
       try {
         const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
         const savedPush = await pushToSave.save()
@@ -21,7 +24,7 @@ notificationsRouter.post('/', async (req, res, next) => {
       }
     } else {
       console.log('Token almacenado con anterioridad.')
-      res.status(200).json(response)
+      res.status(200).json(subscripcionExiste)
     }
   })
 })
