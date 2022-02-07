@@ -8,7 +8,7 @@ Funcionamiento actual:
 - Deploy en heroku: Guarda el token de notificación si no existe, y escucha si salta el endpoint api/notificaciones/novedad
 - Ejecución en local para ejecutar el cronjob con playwright
 
-<img src="https://i.gyazo.com/66e898f0bfddfe9feba8354930e70085.png" alt="drawing" width="200"/>
+<img src="https://i.gyazo.com/66e898f0bfddfe9feba8354930e70085.png" alt="drawing" width="400"/>
 
 TODO:
 
