@@ -1,5 +1,10 @@
 const PUBLIC_VAPID_KEY = 'BJ6R1K9eaXn3vX7liHFqhCoJS05yVkUKJcnUSzS2h6lETSlt-NjQzdvFS0VGQk4EOmZEVwKArOx4LsCNOLurm8A'
 
+const delay = (time) => {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, time)
+  })
+}
 function urlBase64ToUint8Array (base64String) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
@@ -26,7 +31,7 @@ const subscription = async () => {
   }).then((res) => {
     return res
   })
-
+  await delay(10000)
   // Send notification
   await fetch('/api/notifications', {
     method: 'POST',
