@@ -28,7 +28,7 @@ const actualizarDB = async (portal, res, zona, limite) => {
 
 const checkear = async (zona, limite) => {
   console.log('Inicio checkeo')
-  const browser = await chromium.launch({ headless: true, chromiumSandbox: false })
+  const browser = await chromium.launch({ headless: true, chromiumSandbox: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
 
   for (const shop of shops) {
     console.log('Inicio checkeo tienda')
