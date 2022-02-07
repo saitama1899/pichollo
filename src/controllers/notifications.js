@@ -21,7 +21,7 @@ notificationsRouter.post('/', async (req, res, next) => {
       }
     } else {
       console.log('Token almacenado con anterioridad.')
-      res.status(200)
+      res.status(200).json(response)
     }
   })
 })
