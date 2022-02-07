@@ -10,7 +10,7 @@ notificationsRouter.post('/', async (req, res, next) => {
     console.log(pushSubscription)
     console.log('························')
     console.log(subscripcionExiste)
-    if (!subscripcionExiste) {
+    if (subscripcionExiste === []) {
       console.log(subscripcionExiste)
       try {
         const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
