@@ -38,9 +38,9 @@ app.listen(PORT, () => {
 
 // Cronjob
 // setInterval(() => {
-busquedas.forEach(async busqueda => {
-  await delay(between(10000, 15000))
-  await checkear(busqueda.zona, busqueda.limite)
-  await delay(between(10000, 15000))
-})
+// busquedas.forEach(async busqueda => {
+//   await delay(between(10000, 15000))
+//   await checkear(busqueda.zona, busqueda.limite)
+//   await delay(between(10000, 15000))
+// })
 // }, between(300000, 400000))
