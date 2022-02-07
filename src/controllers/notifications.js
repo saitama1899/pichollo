@@ -27,9 +27,13 @@ const { getUsers } = require('../functions/utils')
 notificationsRouter.post('/', async (req, res, next) => {
   console.log('Inicio guardar token notificacion')
   const pushSubscription = req.body
+  console.log(pushSubscription)
   try {
-    const subscripcionExiste = await User.find({ token: JSON.stringify(pushSubscription) }).then(result => result)
+    const subscripcionExiste = await User.find({ token: JSON.stringify(pushSubscription) }).then(result => {
+      console.log(result)
+    })
     if (!subscripcionExiste) {
+      console.log(subscripcionExiste)
       const pushToSave = new User({ token: JSON.stringify(pushSubscription) })
       const savedPush = await pushToSave.save()
       console.log('Token guardado correctamente.')
