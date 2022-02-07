@@ -8,4 +8,4 @@ TODO:
 
 - Lograr evitar la detección del bot en el tercer portal
 - Deploy heroku y cron job ejecutando cada 10-15 minutos
-- Refactor de código
+- Refactor de código 
