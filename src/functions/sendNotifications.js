@@ -7,6 +7,7 @@ const reqUrl = NODE_ENV === 'development'
   : PROD_URL
 
 const mandarNotificacion = (info) => {
+  console.log('Inicio mandar notificacion')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -17,6 +18,7 @@ const mandarNotificacion = (info) => {
     info,
     config
   })
+  console.log('Fin mandar notificacion')
 }
 
 module.exports = {

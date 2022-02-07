@@ -16,10 +16,12 @@ const actualizarDB = async (portal, res, zona, limite) => {
     const buscarInfo = await Info.findOne({ portal: info.portal, zona: info.zona })
     if (buscarInfo) {
       await Info.findByIdAndUpdate(buscarInfo._id, info)
+      console.log('Registro actualizado en la BD')
       if (buscarInfo.info < info.info) await mandarNotificacion(info)
     } else {
       const infoToSave = new Info(info)
       await infoToSave.save()
+      console.log('Nuevo registro guardado en la BD')
     }
   } catch (e) { console.error(e) }
 }
@@ -29,6 +31,7 @@ const checkear = async (zona, limite) => {
   const browser = await chromium.launch({ headless: true })
 
   for (const shop of shops) {
+    console.log('Inicio checkeo tienda')
     await delay(between(2000, 4000))
     const { check, zonas, vendor, url } = shop
     const page = await browser.newPage()
@@ -44,12 +47,12 @@ const checkear = async (zona, limite) => {
     const res = await check({ page })
     await page.close()
     await actualizarDB(vendor, parseInt(res), zona, limite)
-    console.log('Fin checkeo')
+    console.log('Fin checkeo tienda')
   }
 
   await browser.close()
+  console.log('Fin checkeo')
 }
-
 module.exports = {
   checkear
 }

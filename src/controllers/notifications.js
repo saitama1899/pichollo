@@ -4,6 +4,7 @@ const User = require('../models/User')
 const { getUsers } = require('../functions/utils')
 
 notificationsRouter.post('/', async (req, res, next) => {
+  console.log('Inicio guardar token notificacion')
   const pushSubscription = req.body
   await User.find({ token: JSON.stringify(pushSubscription) }).then(async (res) => {
     if (!res) {
@@ -22,6 +23,7 @@ notificationsRouter.post('/', async (req, res, next) => {
 })
 
 notificationsRouter.post('/novedad', async (req, res) => {
+  console.log('Inicio request para mandar la notificacion')
   const { portal, url, zona, limite } = req.body.info
   const payload = JSON.stringify({
     title: 'Pichollo',
@@ -35,6 +37,7 @@ notificationsRouter.post('/novedad', async (req, res) => {
         const { token } = user
         const pushSubscription = JSON.parse(token)
         await webpush.sendNotification(pushSubscription, payload)
+        console.log('Fin request para mandar la notificacion')
       })
     })
   } catch (e) { console.error(e) }
